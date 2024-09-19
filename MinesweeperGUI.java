@@ -27,6 +27,7 @@ public class MinesweeperGUI {
         for (int i = 0; i < r; i++) {
             for (int j = 0; j < c; j++) {
                 buttons[i][j].setText("");
+                buttons[i][j].setBackground(Color.lightGray);
             }
         }
     }
@@ -37,6 +38,7 @@ public class MinesweeperGUI {
                 buttons[row][col] = new JButton();
                 buttons[row][col].setPreferredSize(new Dimension(5, 5));
                 buttons[row][col].setMargin(new Insets(0, 0, 0, 0));
+                buttons[row][col].setBackground(Color.lightGray);
                 buttons[row][col].addMouseListener(new Bombhit(row, col));
                 f.add(buttons[row][col]);
             }
@@ -46,5 +48,9 @@ public class MinesweeperGUI {
     
     public void editButton(int r, int c, String num) {
         buttons[r][c].setText(num);
+    }
+
+    public void color(int r, int c, Color color) {
+        buttons[r][c].setBackground(color);
     }
 }

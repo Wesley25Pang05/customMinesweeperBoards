@@ -19,38 +19,31 @@ public class MyProgram
         while (!(userAnswer.equals("Custom")||userAnswer.equals("Easy")||
         userAnswer.equals("Medium")||userAnswer.equals("Hard"))) {
             System.out.println("Which board do you want?"
-            + " Custom, Easy, Medium, or Hard");
+                    + " Custom, Easy, Medium, or Hard");
             userAnswer = input.nextLine();
-        }
-        
-        if (userAnswer.equals("Easy")) {
-            game = new Board(8, 8);
-            game.placeMines(10);
-        }
-        else if (userAnswer.equals("Medium")) {
-            game = new Board(16, 16);
-            game.placeMines(40);
-        }
-        else if (userAnswer.equals("Hard")) {
-            game = new Board(30, 16);
-            game.placeMines(99);
-        }
-        else if (userAnswer.equals("Custom")) {
-            System.out.println("How many rows?");
-            int x = input.nextInt();
-            System.out.println("How many columns?");
-            int y = input.nextInt();
-            int mines = 0;
-            while (mines < 1 || mines > Math.sqrt(x * y)) {
-                System.out.println("How many mines?");
-                mines = input.nextInt();
+
+            if (userAnswer.equalsIgnoreCase("Easy")) {
+                game = new Board(8, 8);
+                game.placeMines(10);
+            } else if (userAnswer.equalsIgnoreCase("Medium")) {
+                game = new Board(16, 16);
+                game.placeMines(40);
+            } else if (userAnswer.equalsIgnoreCase("Hard")) {
+                game = new Board(30, 16);
+                game.placeMines(99);
+            } else if (userAnswer.equalsIgnoreCase("Custom")) {
+                System.out.println("How many rows?");
+                int x = input.nextInt();
+                System.out.println("How many columns?");
+                int y = input.nextInt();
+                int mines = 0;
+                while (mines < 1 || mines > Math.sqrt(x * y)) {
+                    System.out.println("How many mines?");
+                    mines = input.nextInt();
+                }
+                game = new Board(x, y);
+                game.placeMines(mines);
             }
-            game = new Board(x, y);
-            game.placeMines(mines);
-        }
-        else {
-            game = new Board(16, 16);
-            game.placeMines(40);
         }
     }
     

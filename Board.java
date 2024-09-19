@@ -1,3 +1,4 @@
+import java.awt.*;
 import java.util.Arrays;
 
 public class Board {
@@ -5,6 +6,7 @@ public class Board {
     private char[][] bombs;
     private String[][] game;
     private MinesweeperGUI gui;
+    private boolean solver;
     private int mines;
     private int found;
     private int r;
@@ -21,6 +23,7 @@ public class Board {
     public void createBoard(int x, int y) {
         bombs = new char[x][y];
         game = new String[x][y];
+        solver = false;
         found = 0;
         r = x;
         c = y;
@@ -72,7 +75,8 @@ public class Board {
                     for (int i = 0; i < r; i++) {
                         for (int j = 0; j < c; j++) {
                             if (bombs[i][j] == '#') {
-                                gui.editButton(i, j, "#");
+                                gui.editButton(i, j, "LOSE");
+                                gui.color(i, j, Color.red);
                             }
                         }
                     }
@@ -95,12 +99,13 @@ public class Board {
                 }
                 game[x][y] = "  " + num + "  ";
                 gui.editButton(x, y, num + "");
+                gui.color(x, y, new Color(80 + num * 20, 255 - num * 25, 80));
                 if (num == 0) {
                     found++;
                     for (int i = -1; i <= 1; i++) {
                         for (int j = -1; j <= 1; j++) {
-                            if (x+i>-1 && y+j>-1 && x+i<r && y+j<c) {
-                                hit(x+i, y+j, false, false);
+                            if (x + i > -1 && y + j > -1 && x + i < r && y + j < c) {
+                                hit(x + i, y + j, false, false);
                             }
                         }
                     }
@@ -147,10 +152,12 @@ public class Board {
         if (!firstHit && game[x][y].equals(a + "|" + b)) {
             game[x][y] = "FLAGS";
             gui.editButton(x, y, "<|");
+            gui.color(x, y, Color.red);
         }
         else if (game[x][y].equals("FLAGS")) {
             game[x][y] = a + "|" + b;
             gui.editButton(x, y, "");
+            gui.color(x, y, Color.LIGHT_GRAY);
         }
     }
     
